@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariage Mahaut & Nathan - Blind Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #fce7f3 0%, #fdf2f8 50%, #fed7aa 100%);
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+
+        .container {
+            max-width: 40rem;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            color: #374151;
+        }
+
+        .header .subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 1rem;
+        }
+
+        /* HOW IT WORKS */
+        .howto {
+            background: white;
+            border: 2px solid #fbcfe8;
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .howto-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #f43f5e;
+            margin-bottom: 0.75rem;
+        }
+
+        .howto-list {
+            padding-left: 1.25rem;
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .howto-list li {
+            margin-bottom: 0.35rem;
+        }
+
+        .howto-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* SEARCH */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1.125rem;
+            border: 2px solid #fbcfe8;
+            border-radius: 0.75rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #f43f5e;
+            box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            font-size: 1.25rem;
+            color: #9ca3af;
+        }
+
+        /* DROPDOWN */
+        .dropdown {
+            background: white;
+            border: 2px solid #fbcfe8;
+            border-radius: 0.75rem;
+            margin-top: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .dropdown-item {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-bottom: 1px solid #f3e8f3;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1f2937;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: #fdf2f8;
+        }
+
+        /* PLAYER */
+        .player-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #fce7f3;
+            display: none;
+        }
+
+        .player-card.active {
+            display: block;
+        }
+
+        .player-icon {
+            display: inline-block;
+            background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+            border-radius: 50%;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 3rem;
+        }
+
+        .player-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-subtitle {
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* PROGRESS BAR */
+        .progress-wrapper {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            background-color: #f3e8f3;
+            border-radius: 1rem;
+            height: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background-color: #f43f5e;
+            height: 100%;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        /* BUTTONS */
+        .btn {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+            color: white;
+            box-shadow: 0 10px 15px rgba(244, 63, 94, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background-color: #f3f4f6;
+            color: #374151;
+            margin-top: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+        }
+
+        /* MESSAGE */
+        .player-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .player-name {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #f43f5e;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .empty-state.active {
+            display: block;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: #6b7280;
+            font-size: 1.125rem;
+        }
+
+        /* ERROR STATE */
+        .error-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .error-state.active {
+            display: block;
+        }
+
+        .error-state p {
+            color: #ef4444;
+            font-size: 1.125rem;
+        }
+
+        .error-state-hint {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ADMIN */
+        .admin-link {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .admin-btn {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .admin-btn:hover {
+            color: #6b7280;
+        }
+
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .admin-back {
+            color: #f43f5e;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-h2 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 2rem;
+        }
+
+        .admin-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #f43f5e;
+        }
+
+        .admin-card h3 {
+            font-size: 1.125rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .form-input, .form-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            outline: none;
+        }
+
+        .form-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-btn {
+            background-color: #f43f5e;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .guests-table {
+            width: 100%;
+            font-size: 0.875rem;
+            border-collapse: collapse;
+        }
+
+        .guests-table thead {
+            border-bottom: 2px solid #d1d5db;
+            background-color: #f9fafb;
+        }
+
+        .guests-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+        }
+
+        .guests-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .guests-table .table-delete {
+            color: #ef4444;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .songs-table {
+            width: 100%;
+            font-size: 0.8125rem;
+            border-collapse: collapse;
+        }
+
+        .songs-table thead {
+            border-bottom: 2px solid #d1d5db;
+            background-color: #f9fafb;
+        }
+
+        .songs-table th {
+            text-align: left;
+            padding: 0.6rem 0.75rem;
+            font-weight: 700;
+        }
+
+        .songs-table td {
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .badge-ok {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .badge-missing {
+            color: #ef4444;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- GUEST VIEW -->
+        <div id="guestView" class="guest-view">
+            <div class="header">
+                <h1>TROUVE TA TABLE EN MUSIQUE</h1>
+                <p class="subtitle"></p>
+            </div>
+
+            <div class="howto">
+                <h2 class="howto-title">Comment ça marche ?</h2>
+                <ol class="howto-list">
+                    <li>Tu tapes les 3 premières lettres de ton <strong>PRÉNOM</strong> dans la barre de recherche</li>
+                    <li>Tu cliques sur ton nom</li>
+                    <li>Tu cliques sur "Jouer la chanson"</li>
+                    <li>Tu trouves qui est l'artiste de la chanson</li>
+                    <li>Tu vas à la table avec le nom de l'artiste</li>
+                </ol>
+            </div>
+
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Tape 3 lettres de ton prénom..."
+                    autocomplete="off"
+                >
+                <div id="dropdown" class="dropdown" style="display: none;"></div>
+            </div>
+
+            <div id="playerCard" class="player-card">
+                <div style="text-align: center;">
+                    <div class="player-icon">🎵</div>
+                </div>
+
+                <div id="noTableMessage" style="display: none; text-align: center; padding: 1.5rem 0.5rem; color: #374151; font-size: 1.05rem; background: #fdf2f8; border-radius: 0.75rem; margin-bottom: 1.5rem;">
+                    🎈 Ta table n'est pas encore attribuée !<br>
+                    <span style="font-size: 0.875rem; color: #6b7280;">Demande aux mariés ou à l'organisation.</span>
+                </div>
+
+                <div id="progressWrapper" class="progress-wrapper">
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">⏸️ Arrêté</p>
+                </div>
+
+                <button class="btn btn-primary" id="playBtn" onclick="replaySong()">
+                    🔊 Jouer la chanson
+                </button>
+
+                <button class="btn btn-secondary" onclick="resetSearch()">
+                    Chercher quelqu'un d'autre
+                </button>
+
+                <img src="cochon.png" alt="Pas invité" style="max-width: 160px; margin: 2rem auto 0; display: block;">
+                
+
+                <div class="player-footer">
+                    <p>
+                        <span class="player-name" id="selectedName"></span>
+                        <br>À toi de trouver ta table !
+                    </p>
+                </div>
+            </div>
+
+            <div id="emptyState" class="empty-state active">
+                <div class="empty-state-icon">🎵</div>
+                <p>Commence à taper ton prénom...</p>
+            </div>
+
+            <div id="errorState" class="error-state">
+                <p>Aucun résultat trouvé</p>
+                <p class="error-state-hint">Vérifie l'orthographe de ton prénom</p>
+            </div>
+
+            <!-- Panel admin temporairement caché : à remettre visible une fois la liste des invités mise à jour -->
+            <div class="admin-link" style="display: none;">
+                <button class="admin-btn" onclick="toggleAdmin()">Admin</button>
+            </div>
+        </div>
+
+        <!-- ADMIN VIEW -->
+        <div id="adminView" class="admin-panel">
+            <button class="admin-back" onclick="toggleAdmin()">← Retour au jeu</button>
+            <h2 class="admin-h2">Panel Admin</h2>
+
+            <div class="admin-card">
+                <h3>Ajouter un invité</h3>
+                <div class="form-row">
+                    <input type="text" id="newName" class="form-input" placeholder="Prénom Nom">
+                    <select id="newTable" class="form-select" style="min-width: 100px;">
+                        <option value="">Table...</option>
+                    </select>
+                    <button class="form-btn" onclick="addGuest()">+ Ajouter</button>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <h3>Invités (<span id="guestCount">0</span>)</h3>
+                <table class="guests-table">
+                    <thead>
+                        <tr>
+                            <th>Prénom Nom</th>
+                            <th>Table</th>
+                            <th style="text-align: center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="guestsList"></tbody>
+                </table>
+            </div>
+
+            <div class="admin-card">
+                <h3>Chansons par table (<span id="songCount">0</span>)</h3>
+                <table class="songs-table">
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Chanson</th>
+                            <th>Fichier audio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="songsList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" preload="none"></audio>
+
+    <script>
+        // Durée (en secondes) de l'extrait joué pour le blind test
+        const SNIPPET_DURATION = 20;
+
+        const INITIAL_GUESTS = [
+            { id: 1, name: 'Eric Douillard', tableId: 1 },
+            { id: 2, name: 'Frédéric Gaubert', tableId: 1 },
+            { id: 3, name: 'Emmanuelle Douillard', tableId: 1 },
+            { id: 4, name: 'Shantelle Gaubert', tableId: 1 },
+            { id: 5, name: 'Yolande Douillard', tableId: 1 },
+            { id: 6, name: 'Pascal Douillard', tableId: 2 },
+            { id: 7, name: 'Pascaline Douillard', tableId: 2 },
+            { id: 8, name: 'Amaïa Mescco', tableId: 2 },
+            { id: 9, name: 'Axelle Mescco', tableId: 2 },
+            { id: 10, name: 'Isaac Douillard', tableId: 2 },
+            { id: 11, name: 'Perla Douillard', tableId: 2 },
+            { id: 12, name: 'Ethan Gaubert', tableId: 3 },
+            { id: 13, name: 'Laetitia Gaubert', tableId: 3 },
+            { id: 14, name: 'Manon Douillard', tableId: 3 },
+            { id: 15, name: 'Maxence Stettner', tableId: 3 },
+            { id: 16, name: 'Simon Douillard', tableId: 3 },
+            { id: 17, name: 'Mathilde Stettner', tableId: 3 },
+            { id: 18, name: 'Adrien Douillard', tableId: 4 },
+            { id: 19, name: 'Emmanuel Caron', tableId: 4 },
+            { id: 20, name: 'Agnès Collet', tableId: 4 },
+            { id: 21, name: 'Cécile Collet', tableId: 4 },
+            { id: 22, name: 'Stéphane Lognon', tableId: 4 },
+            { id: 23, name: 'Sophie Butruille', tableId: 4 },
+            { id: 24, name: 'Amélie Dubard', tableId: 5 },
+            { id: 25, name: 'Franck Butruille', tableId: 5 },
+            { id: 26, name: 'Ingrid Butruille', tableId: 5 },
+            { id: 27, name: 'Olivier Butruille', tableId: 5 },
+            { id: 28, name: 'Franck Mathias', tableId: 5 },
+            { id: 29, name: 'Laure Mathias', tableId: 5 },
+            { id: 30, name: 'Albin Deplanque', tableId: 8 },
+            { id: 31, name: 'Charles De Riedmatten', tableId: 8 },
+            { id: 32, name: 'Chlotilde De Riedmatten', tableId: 8 },
+            { id: 33, name: 'Isabel Serra Riera', tableId: 8 },
+            { id: 34, name: 'Ferdi Huc', tableId: 8 },
+            { id: 35, name: 'Octave Labbé', tableId: 8 },
+            { id: 36, name: 'Sahina Rock', tableId: 8 },
+            { id: 37, name: 'Amelie gendron', tableId: 9 },
+            { id: 38, name: 'Elliot Butruille', tableId: 9 },
+            { id: 39, name: 'Jérome Deldicque', tableId: 9 },
+            { id: 40, name: 'Josie Huc', tableId: 9 },
+            { id: 41, name: 'Lucien Rock', tableId: 9 },
+            { id: 42, name: 'Mathilde Viot', tableId: 9 },
+            { id: 43, name: 'Astrid Deldicque', tableId: 10 },
+            { id: 44, name: 'Gwenael Fichou', tableId: 10 },
+            { id: 45, name: 'Lucas Louf', tableId: 10 },
+            { id: 46, name: 'Marion Geny', tableId: 10 },
+            { id: 47, name: 'Pierre-Antoine Arvois', tableId: 10 },
+            { id: 48, name: 'Quentin Viot', tableId: 10 },
+            { id: 49, name: 'Mahaut Mathias', tableId: 11 },
+            { id: 50, name: 'Alix Delécaut', tableId: 11 },
+            { id: 51, name: 'Charlotte Flamand', tableId: 11 },
+            { id: 52, name: 'Marie Leneutre', tableId: 11 },
+            { id: 53, name: 'Romain Leneutre', tableId: 11 },
+            { id: 54, name: 'Vincent De Coignac', tableId: 11 },
+            { id: 55, name: 'Manon Lepoutre', tableId: 12 },
+            { id: 56, name: 'Nathan Douillard', tableId: 12 },
+            { id: 57, name: 'Aymeric Flamand', tableId: 12 },
+            { id: 58, name: 'Loic Ducatez', tableId: 12 },
+            { id: 59, name: 'Arthur Wirbel', tableId: 12 },
+            { id: 60, name: 'Pierre Nicodème', tableId: 12 },
+            { id: 61, name: 'Eve Aliane', tableId: 13 },
+            { id: 62, name: 'Louis Lorthiois', tableId: 13 },
+            { id: 63, name: 'Marie Lanza', tableId: 13 },
+            { id: 64, name: 'Antoine Destombes', tableId: 13 },
+            { id: 65, name: 'Marion Lorthiois', tableId: 13 },
+            { id: 66, name: 'Romane Goarant', tableId: 13 },
+            { id: 67, name: 'Ines Bayart', tableId: 14 },
+            { id: 68, name: 'Jules Renauldon', tableId: 14 },
+            { id: 69, name: 'Olivier Maire', tableId: 14 },
+            { id: 70, name: 'Perrine Maire', tableId: 14 },
+            { id: 71, name: 'Pierre Louis Bayart', tableId: 14 },
+            { id: 72, name: 'Victor Cauchy', tableId: 14 },
+            { id: 73, name: 'Benjamin Ryngaert', tableId: 15 },
+            { id: 74, name: 'Clément DJ', tableId: 15 },
+            { id: 75, name: 'Benoit Gourlet', tableId: 15 },
+            { id: 76, name: 'Cécile Labat', tableId: 15 },
+            { id: 77, name: 'Florian Poteau', tableId: 15 },
+            { id: 78, name: 'Hugo Fournier', tableId: 15 },
+            { id: 79, name: 'Isis Poteau', tableId: 15 },
+            { id: 80, name: 'Maxime Labat', tableId: 15 },
+            { id: 81, name: 'Basile Melchior', tableId: 16 },
+            { id: 82, name: 'Claire Roland', tableId: 16 },
+            { id: 83, name: 'Julia Melchior', tableId: 16 },
+            { id: 84, name: 'Maxime Durand', tableId: 16 },
+            { id: 85, name: 'Océane N\'Doli', tableId: 16 },
+            { id: 86, name: 'Romain Mariani', tableId: 16 },
+            { id: 87, name: 'Astrid Commeignes', tableId: 17 },
+            { id: 88, name: 'Axel Gaudefroy', tableId: 17 },
+            { id: 89, name: 'Claire Le Tollec', tableId: 17 },
+            { id: 90, name: 'Florent Carrière', tableId: 17 },
+            { id: 91, name: 'Kévin Bocket', tableId: 17 },
+            { id: 92, name: 'Louis Roland', tableId: 17 },
+            { id: 93, name: 'Basile Ryelantd', tableId: 18 },
+            { id: 94, name: 'Christopher (Romane)', tableId: 18 },
+            { id: 95, name: 'Marine Doultremont', tableId: 18 },
+            { id: 96, name: 'Romain De Becker', tableId: 18 },
+            { id: 97, name: 'Romane Vanhaverbeck', tableId: 18 },
+            { id: 98, name: 'Seije Goderis', tableId: 18 },
+            { id: 99, name: 'Blanche Dujardin', tableId: 19 },
+            { id: 100, name: 'Félicie Lecoutère', tableId: 19 },
+            { id: 101, name: 'Pierre-Alexandre Forest', tableId: 19 },
+            { id: 102, name: 'Clément Duquesne', tableId: 19 },
+            { id: 103, name: 'Phiphi Mathias', tableId: 19 },
+            { id: 104, name: 'Victoire Butruille', tableId: 19 },
+            { id: 105, name: 'Alice Channez', tableId: 20 },
+            { id: 106, name: 'Joséphine de Broutelles', tableId: 20 },
+            { id: 107, name: 'Pia Mathias', tableId: 20 },
+            { id: 108, name: 'Quentin Abeille', tableId: 20 },
+            { id: 109, name: 'Simon Dudu', tableId: 20 },
+            { id: 110, name: 'Clara Ducatillon', tableId: 20 },
+            { id: 111, name: 'Albane Leduque', tableId: 21 },
+            { id: 112, name: 'Adrien Bignon', tableId: 21 },
+            { id: 113, name: 'Blanche Andres', tableId: 21 },
+            { id: 114, name: 'Chloé Choteau', tableId: 21 },
+            { id: 115, name: 'Alex Zurlo', tableId: 21 },
+            { id: 116, name: 'Jeanne Mathias', tableId: 21 },
+            { id: 117, name: 'Alexandre Leduque', tableId: 22 },
+            { id: 118, name: 'Axel Hautcoeur', tableId: 22 },
+            { id: 119, name: 'Florian Delange', tableId: 22 },
+            { id: 120, name: 'Pauline Choteau', tableId: 22 },
+            { id: 121, name: 'Pierre Malfaisan', tableId: 22 },
+            { id: 122, name: 'Maité Lefebvre', tableId: 22 },
+            { id: 123, name: 'Bertrand Senlis', tableId: null },
+            { id: 124, name: 'Bruno Florin', tableId: null },
+            { id: 125, name: 'Chantale Wattine', tableId: null },
+            { id: 126, name: 'Charlotte Ducatillon', tableId: null },
+            { id: 127, name: 'Fanny Florin', tableId: null },
+            { id: 128, name: 'Fiona Mathias', tableId: null },
+            { id: 129, name: 'Hélène Ducatillon', tableId: null },
+            { id: 130, name: 'Isabelle Senlis', tableId: null },
+            { id: 131, name: 'Jean Michel', tableId: null },
+            { id: 132, name: 'Jérôme Ducatillon', tableId: null },
+            { id: 133, name: 'Mathilde Ducatillon', tableId: null },
+            { id: 134, name: 'Olivier Mathias', tableId: null },
+            { id: 135, name: 'Louise Delécaut', tableId: null },
+        ];
+
+        // Chaque table a une chanson, et optionnellement un fichier audio
+        // (dossier "audio/" à côté de ce fichier index.html).
+        // Les tables 1 à 4 n'ont pas encore de fichier mp3 fourni : le jeu
+        // utilise alors une simulation de lecture (comme dans le prototype d'origine).
+        const TABLES = [
+            { id: 1,  song: 'Les corons - Pierre Bachelet', audio: '1_-_Pierre_Bachelet_-_Les_corons_.mp3' },
+            { id: 2,  song: 'Désolé pour hier soir - Tryo', audio: '2_-_Tryo_-_De_sole__pour_hier_soir.mp3' },
+            { id: 3,  song: 'Roméo et Juliette - Les rois du monde', audio: '3_-_Rome_o_et_Juliette_-_Les_Rois_du_Monde.mp3' },
+            { id: 4,  song: 'Une belle histoire - Michel Fugain', audio: '4_-_Fugain_-_Une_belle_histoire.mp3' },
+            { id: 5,  song: 'Message In A Bottle - The Police', audio: '5_-_The_Police_-_Message_In_A_Bottle.mp3' },
+            { id: 6,  song: "Dans les yeux d'Emilie - Joe Dassin", audio: '6_-_Joe_Dassin_-_Dans_les_yeux_D_E_milie.mp3' },
+            { id: 7,  song: "Don't Stop Me Now - Queen", audio: '7_-_Queen_Don_t_Stop_Me_Now.mp3' },
+            { id: 8,  song: 'Soulstorm - Patrice', audio: '8_-_patrice_-_soulstorm.mp3' },
+            { id: 9,  song: "Des fleurs - Salut c'est cool", audio: '9_-_salut_c_est_cool_-_Des_fleurs.mp3' },
+            { id: 10, song: 'Les Petits Cailloux - Roland Cristal', audio: '10_-_ROLAND_CRISTAL_-_Les_Petits_Cailloux.mp3' },
+            { id: 11, song: 'Toxic - Britney Spears', audio: '11_-_Britney_Spears_Toxic.mp3' },
+            { id: 12, song: 'Vois sur ton chemin - Les Choristes', audio: '12_-_Les_choristes___Vois_sur_ton_chemin.mp3' },
+            { id: 13, song: 'Me Gustas Tu - Manu Chao', audio: '13_-_Manu_Chao_-_Me_Gustas_Tu.mp3' },
+            { id: 14, song: 'Pump It - The Black Eyed Peas', audio: '14_-_The_Black_Eyed_Peas_-_Pump_It.mp3' },
+            { id: 15, song: 'I Will Survive - Gloria Gaynor', audio: '15_-_Gloria_Gaynor_I_Will_Survive.mp3' },
+            { id: 16, song: 'Lambé An Dro - Matmatah', audio: '16_-_Matmatah_Lambe__An_Dro.mp3' },
+            { id: 17, song: 'Chante - Les Forbans', audio: '17_-_Les_forbans_Chante.mp3' },
+            { id: 18, song: 'Lisztomania - Phoenix', audio: '18_-_Phoenix_Lisztomania_.mp3' },
+            { id: 19, song: 'The Ketchup Song (Aserejé) - Las Ketchup', audio: '19_-_Las_Ketchup_The_Ketchup_Song_Asereje.mp3' },
+            { id: 20, song: 'Volare - Gipsy Kings', audio: '20_-_Gipsy_Kings_Volare.mp3' },
+            { id: 21, song: "Louxor J'adore - Philippe Katerine", audio: '21_-_Philippe_Katerine_Louxor.mp3' },
+            { id: 22, song: 'Dès que le vent soufflera - Renaud', audio: '22_-_Renaud_De_s_que_le_vent_soufflera.mp3' },
+        ];
+
+        let guests = [...INITIAL_GUESTS];
+        let selectedGuest = null;
+        let isPlaying = false;
+
+        // Pour les tables sans fichier audio (simulation, comme le proto d'origine)
+        let fakePlaybackInterval = null;
+        let fakePlaybackProgress = 0;
+
+        // DOM elements
+        const searchInput = document.getElementById('searchInput');
+        const dropdown = document.getElementById('dropdown');
+        const playerCard = document.getElementById('playerCard');
+        const noTableMessage = document.getElementById('noTableMessage');
+        const progressWrapper = document.getElementById('progressWrapper');
+        const emptyState = document.getElementById('emptyState');
+        const errorState = document.getElementById('errorState');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const selectedName = document.getElementById('selectedName');
+        const guestsList = document.getElementById('guestsList');
+        const guestCount = document.getElementById('guestCount');
+        const songsList = document.getElementById('songsList');
+        const songCount = document.getElementById('songCount');
+        const newTableSelect = document.getElementById('newTable');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+
+        function formatTime(sec) {
+            sec = Math.max(0, Math.floor(sec));
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function getTableForGuest(guest) {
+            return TABLES.find(t => t.id === guest.tableId) || null;
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const input = e.target.value.trim();
+
+            if (input.length < 3) {
+                dropdown.style.display = 'none';
+                emptyState.classList.add('active');
+                errorState.classList.remove('active');
+                return;
+            }
+
+            const filtered = guests.filter(g => 
+                g.name.toLowerCase().startsWith(input.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                dropdown.style.display = 'none';
+                emptyState.classList.remove('active');
+                errorState.classList.add('active');
+                return;
+            }
+
+            dropdown.innerHTML = filtered.map(g =>
+                `<button class="dropdown-item" onclick="selectGuest(${g.id})">${g.name}</button>`
+            ).join('');
+            dropdown.style.display = 'block';
+            emptyState.classList.remove('active');
+            errorState.classList.remove('active');
+        });
+
+        function selectGuest(id) {
+            selectedGuest = guests.find(g => g.id === id);
+            searchInput.value = '';
+            dropdown.style.display = 'none';
+            emptyState.classList.remove('active');
+            errorState.classList.remove('active');
+            playerCard.classList.add('active');
+            selectedName.textContent = selectedGuest.name;
+
+            if (!selectedGuest.tableId) {
+                noTableMessage.style.display = 'block';
+                progressWrapper.style.display = 'none';
+                playBtn.style.display = 'none';
+            } else {
+                noTableMessage.style.display = 'none';
+                progressWrapper.style.display = 'block';
+                playBtn.style.display = 'flex';
+                playSong();
+            }
+        }
+
+        function playSong() {
+            if (isPlaying || !selectedGuest) return;
+            const table = getTableForGuest(selectedGuest);
+
+            if (table && table.audio) {
+                playBtn.disabled = false;
+                isPlaying = true;
+                progressFill.style.width = '0%';
+                progressText.textContent = '⏵️ En train de jouer...';
+
+                audioPlayer.src = `audio/${table.audio}`;
+                audioPlayer.currentTime = 0;
+                const playPromise = audioPlayer.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        isPlaying = false;
+                        progressText.textContent = "⚠️ Impossible de lire l'audio (clique à nouveau)";
+                    });
+                }
+            } else {
+                // Pas de fichier audio pour cette table : simulation comme le proto d'origine
+                isPlaying = true;
+                fakePlaybackProgress = 0;
+                progressFill.style.width = '0%';
+                progressText.textContent = '⏵️ En train de jouer... (extrait non fourni)';
+
+                fakePlaybackInterval = setInterval(() => {
+                    fakePlaybackProgress += 0.5;
+                    progressFill.style.width = fakePlaybackProgress + '%';
+
+                    if (fakePlaybackProgress >= 100) {
+                        stopSong();
+                    }
+                }, 75); // ~15 sec au total
+            }
+        }
+
+        // Suit la vraie progression de lecture, limitée à SNIPPET_DURATION
+        audioPlayer.addEventListener('timeupdate', () => {
+            if (!isPlaying) return;
+            const pct = Math.min(100, (audioPlayer.currentTime / SNIPPET_DURATION) * 100);
+            progressFill.style.width = pct + '%';
+            progressText.textContent = `⏵️ ${formatTime(audioPlayer.currentTime)} / ${formatTime(SNIPPET_DURATION)}`;
+
+            if (audioPlayer.currentTime >= SNIPPET_DURATION) {
+                stopSong();
+            }
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            if (isPlaying) stopSong();
+        });
+
+        function stopSong() {
+            isPlaying = false;
+            if (fakePlaybackInterval) {
+                clearInterval(fakePlaybackInterval);
+                fakePlaybackInterval = null;
+            }
+            if (!audioPlayer.paused) {
+                audioPlayer.pause();
+            }
+            progressText.textContent = '⏸️ Arrêté';
+            progressFill.style.width = '100%';
+        }
+
+        function replaySong() {
+            stopSong();
+            playSong();
+        }
+
+        function resetSearch() {
+            selectedGuest = null;
+            searchInput.value = '';
+            searchInput.focus();
+            dropdown.style.display = 'none';
+            emptyState.classList.add('active');
+            errorState.classList.remove('active');
+            playerCard.classList.remove('active');
+            noTableMessage.style.display = 'none';
+            progressWrapper.style.display = 'block';
+            playBtn.style.display = 'flex';
+            stopSong();
+            audioPlayer.removeAttribute('src');
+            audioPlayer.currentTime = 0;
+        }
+
+        function toggleAdmin() {
+            document.getElementById('guestView').style.display = document.getElementById('guestView').style.display === 'none' ? 'block' : 'none';
+            document.getElementById('adminView').classList.toggle('active');
+            if (document.getElementById('adminView').classList.contains('active')) {
+                renderGuestsList();
+                renderSongsList();
+            }
+        }
+
+        function populateTableSelect() {
+            newTableSelect.innerHTML = '<option value="">Table...</option>' +
+                TABLES.map(t => `<option value="${t.id}">Table ${t.id}</option>`).join('');
+        }
+
+        function addGuest() {
+            const name = document.getElementById('newName').value.trim();
+            const tableId = parseInt(document.getElementById('newTable').value);
+
+            if (!name || !tableId) return;
+
+            const newGuest = {
+                id: Math.max(...guests.map(g => g.id), 0) + 1,
+                name,
+                tableId
+            };
+
+            guests.push(newGuest);
+            document.getElementById('newName').value = '';
+            document.getElementById('newTable').value = '';
+            renderGuestsList();
+        }
+
+        function deleteGuest(id) {
+            guests = guests.filter(g => g.id !== id);
+            renderGuestsList();
+        }
+
+        function renderGuestsList() {
+            guestCount.textContent = guests.length;
+            guestsList.innerHTML = guests.map(g =>
+                `<tr>
+                    <td>${g.name}</td>
+                    <td style="color: #f43f5e; font-weight: 600;">${g.tableId}</td>
+                    <td style="text-align: center;">
+                        <button class="table-delete" onclick="deleteGuest(${g.id})">✕ Suppr</button>
+                    </td>
+                </tr>`
+            ).join('');
+        }
+
+        function renderSongsList() {
+            songCount.textContent = TABLES.length;
+            songsList.innerHTML = TABLES.map(t =>
+                `<tr>
+                    <td style="font-weight:600;">Table ${t.id}</td>
+                    <td>${t.song}</td>
+                    <td>${t.audio ? `<span class="badge-ok">✓ ${t.audio}</span>` : '<span class="badge-missing">Aucun extrait fourni</span>'}</td>
+                </tr>`
+            ).join('');
+        }
+
+        // Initial render
+        populateTableSelect();
+        renderGuestsList();
+        renderSongsList();
+        searchInput.focus();
+    </script>
+</body>
+</html>
